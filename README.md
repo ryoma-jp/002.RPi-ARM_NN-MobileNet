@@ -137,8 +137,6 @@ Makefileを下記のように修正
 
 ML-examplesをビルド
 
-	$ ARMNN_LIB=${BASEDIR}/armnn/build
-	$ ARMNN_INC=${BASEDIR}/armnn/include
 	$ make test
 
 
