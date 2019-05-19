@@ -98,6 +98,7 @@ Arm NNをビルド
 	$ cmake .. -DARMCOMPUTE_ROOT=${BASEDIR}/ComputeLibrary -DARMCOMPUTE_BUILD_DIR=${BASEDIR}/ComputeLibrary/build -DBOOST_ROOT=${BASEDIR}/boost_1_64_0 -DTF_GENERATED_SOURCES=${BASEDIR}/tensorflow_protobuf -DBUILD_TF_PARSER=1 -DPROTOBUF_ROOT=/usr/local -DARMCOMPUTENEON=1
 	$ make
 	$ ./UnitTests
+	$ sudo make install
 
 ML-examplesを動かして動作確認
 
@@ -116,8 +117,8 @@ Makefileを下記のように修正
 	-ARMNN_INC = ${HOME}/devenv/armnn/include
 	+#ARMNN_LIB = ${HOME}/devenv/build-x86_64/release/armnn
 	+#ARMNN_INC = ${HOME}/devenv/armnn/include
-	+ARMNN_LIB=${BASEDIR}/armnn/build
-	+ARMNN_INC=${BASEDIR}/armnn/include
+	+ARMNN_LIB=/usr/local/lib
+	+ARMNN_INC=/usr/local/include
 
 	-all: mnist_caffe mnist_tf
 	+
