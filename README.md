@@ -89,8 +89,9 @@ ComputeLibraryをビルド
 
 Arm NNをビルド
 
+	$ cd ${BASEDIR}/ComputeLibrary
 	$ pushd tensorflow 
-	$ ${BASEDIR}/armnn/scripts/generate_tensorflow_protobuf.sh ${BASEDIR}/tensorflow_protobuf /usr/local
+	$ ${BASEDIR}/armnn/scripts/generate_tensorflow_protobuf.sh ${BASEDIR}/tensorflow_protobuf /usr/local　★tensorflow 2.0でcontribディレクトリが廃止→この部分の修正が必要
 	$ popd
 	$ cd ${BASEDIR}/armnn
 	$ mkdir build 
