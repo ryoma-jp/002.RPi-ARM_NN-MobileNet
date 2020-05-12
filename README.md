@@ -44,7 +44,11 @@ https://forest.watch.impress.co.jp/docs/review/1067836.html
 
 2020.5.12 ARMNNのビルドでエラーが出るようになっているので，
 https://developer.arm.com/solutions/machine-learning-on-arm/developer-material/how-to-guides/cross-compiling-arm-nn-for-the-raspberry-pi-and-tensorflow
-に沿って，インストールを試してみる
+に沿って，インストールを試してみる  
+
+2020.5.13 変わらずビルドエラー出た  
+https://github.com/ARM-software/armnn/issues/355  
+を試す
 
 Arm NN SDKのインストールに必要なパッケージのインストール
 
