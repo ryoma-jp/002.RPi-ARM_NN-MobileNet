@@ -42,6 +42,10 @@ https://forest.watch.impress.co.jp/docs/review/1067836.html
 
 ### ARM NNの準備
 
+2020.5.12 ARMNNのビルドでエラーが出るようになっているので，
+https://developer.arm.com/solutions/machine-learning-on-arm/developer-material/how-to-guides/cross-compiling-arm-nn-for-the-raspberry-pi-and-tensorflow
+に沿って，インストールを試してみる
+
 Arm NN SDKのインストールに必要なパッケージのインストール
 
 	$ sudo apt-get install scons cmake autoconf automake libtool curl make g++ unzip
