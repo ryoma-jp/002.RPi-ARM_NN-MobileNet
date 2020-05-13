@@ -50,6 +50,29 @@ https://developer.arm.com/solutions/machine-learning-on-arm/developer-material/h
 https://github.com/ARM-software/armnn/issues/355  
 を試す
 
+cmakeの引数に
+
+	-DCMAKE_CXX_FLAGS=-Wno-error=deprecated-copy
+
+を追加する
+
+	cmake .. -DCMAKE_LINKER=/usr/bin/arm-linux-gnueabihf-ld \
+	-DCMAKE_C_COMPILER=/usr/bin/arm-linux-gnueabihf-gcc \
+	-DCMAKE_CXX_COMPILER=/usr/bin/arm-linux-gnueabihf-g++ \
+	-DCMAKE_C_COMPILER_FLAGS=-fPIC \
+	-DCMAKE_CXX_FLAGS=-mfpu=neon \
+	-DCMAKE_CXX_FLAGS=-Wno-error=deprecated-copy \
+	-DARMCOMPUTE_ROOT=$BASEDIR/ComputeLibrary \
+	-DARMCOMPUTE_BUILD_DIR=$BASEDIR/ComputeLibrary/build \
+	-DBOOST_ROOT=$BASEDIR/boost \
+	-DTF_GENERATED_SOURCES=$BASEDIR/tensorflow-protobuf \
+	-DBUILD_TF_PARSER=1 \
+	-DPROTOBUF_ROOT=$BASEDIR/protobuf-arm \
+	-DARMCOMPUTENEON=1 \
+	-DARMNNREF=1
+	
+これでmakeするとエラーは解消．
+
 Arm NN SDKのインストールに必要なパッケージのインストール
 
 	$ sudo apt-get install scons cmake autoconf automake libtool curl make g++ unzip
