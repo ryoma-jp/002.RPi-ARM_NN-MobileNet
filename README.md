@@ -44,11 +44,11 @@ https://forest.watch.impress.co.jp/docs/review/1067836.html
 
 2020.5.12 ARMNNのビルドでエラーが出るようになっているので，
 https://developer.arm.com/solutions/machine-learning-on-arm/developer-material/how-to-guides/cross-compiling-arm-nn-for-the-raspberry-pi-and-tensorflow
-に沿って，インストールを試してみる  
+に沿って，インストール  
 
 2020.5.13 変わらずビルドエラー出た  
 https://github.com/ARM-software/armnn/issues/355  
-を試す
+の対応が必要で  
 
 cmakeの引数に
 
@@ -73,64 +73,6 @@ cmakeの引数に
 	
 これでmakeするとエラーは解消．
 
-Arm NN SDKのインストールに必要なパッケージのインストール
-
-	$ sudo apt-get install scons cmake autoconf automake libtool curl make g++ unzip
-
-armnnとComputeLibraryを取得
-
-	$ export BASEDIR=`pwd`
-	$ git clone https://github.com/Arm-software/armnn
-	$ git clone https://github.com/ARM-software/ComputeLibrary
-
-BOOSTをインストール
-
-	$ wget https://dl.bintray.com/boostorg/release/1.64.0/source/boost_1_64_0.tar.bz2
-	$ tar xf boost_1_64_0.tar.bz2
-	$ cd ${BASEDIR}/boost_1_64_0/tools/build
-	$ ./bootstrap.sh
-	$ ./b2 install --prefix=${BASEDIR}/boost.build
-	$ export PATH=${BASEDIR}/boost.build/bin:$PATH
-	$ cp ${BASEDIR}/boost_1_64_0/tools/build/example/user-config.jam ${BASEDIR}/boost_1_64_0/project-config.jam
-	$ echo "using gcc : arm : arm-linux-gnueabihf-g++-6 ;" >> ${BASEDIR}/boost_1_64_0/project-config.jam
-
-ProtoBufをインストール
-
-	$ cd ${BASEDIR}
-	$ git clone -b v3.5.0 https://github.com/google/protobuf.git
-	$ cd ${BASEDIR}/protobuf
-	$ git submodule update --init --recursive
-	$ ./autogen.sh
-	$ ./configure
-	$ make
-	$ make check
-	$ sudo make install
-	$ sudo ldconfig
-	$ export LD_LIBRARY_PATH="/usr/local/lib;${LD_LIBRARY_PATH}"
-
-TensorFlowのコードを取得（ビルドは不要）
-
-	$ cd ${BASEDIR}
-	$ git clone https://github.com/tensorflow/tensorflow.git
-
-ComputeLibraryをビルド
-
-	$ cd ${BASEDIR}/ComputeLibrary
-	$ scons extra_cxx_flags="-fPIC" benchmark_tests=0 validation_tests=0 neon=1
-
-Arm NNをビルド
-
-	$ cd ${BASEDIR}/ComputeLibrary
-	$ pushd tensorflow 
-	$ ${BASEDIR}/armnn/scripts/generate_tensorflow_protobuf.sh ${BASEDIR}/tensorflow_protobuf /usr/local　★tensorflow 2.0でcontribディレクトリが廃止→この部分の修正が必要
-	$ popd
-	$ cd ${BASEDIR}/armnn
-	$ mkdir build 
-	$ cd build 
-	$ cmake .. -DARMCOMPUTE_ROOT=${BASEDIR}/ComputeLibrary -DARMCOMPUTE_BUILD_DIR=${BASEDIR}/ComputeLibrary/build -DBOOST_ROOT=${BASEDIR}/boost_1_64_0 -DTF_GENERATED_SOURCES=${BASEDIR}/tensorflow_protobuf -DBUILD_TF_PARSER=1 -DPROTOBUF_ROOT=/usr/local -DARMCOMPUTENEON=1
-	$ make
-	$ ./UnitTests
-	$ sudo make install
 
 ML-examplesを動かして動作確認
 
@@ -172,6 +114,12 @@ ML-examplesをビルド
 
 	$ make test
 
+実行結果
+
+	(armnn) pi@raspberrypi:~/Projects/armnn/work/ML-examples/armnn-mnist $ make test
+	LD_LIBRARY_PATH=/home/pi/Projects/armnn/work/armnn-dist/armnn/lib:/home/pi/Projects/armnn/work/armnn-dist/armnn/lib ./mnist_tf
+		Predicted: 7
+		Actual: 7
 
 ## 参考URL
 
